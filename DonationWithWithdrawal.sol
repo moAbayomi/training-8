@@ -36,8 +36,8 @@ contract DonationContract {
         donationsCount++;
         totalDonations = totalDonations + msg.value;
         addressToAmountFunded[msg.sender].push(donation);
-        if(totalDonations >= i_goal) {
-            revert("goal reached!");
+        if(totalDonations > i_goal) {
+            revert("total donations cant be greater than aimed goal !!. it just can't, im sorry");
         }
     }
 
