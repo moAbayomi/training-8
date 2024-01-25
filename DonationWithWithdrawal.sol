@@ -9,6 +9,8 @@ contract DonationContract {
 
     address private owner;
 
+    uint public immutable i_goal;
+
     uint256 public totalDonations;
 
     uint256 public donationsCount;
@@ -18,8 +20,9 @@ contract DonationContract {
         uint256 time;
     }
 
-    constructor() {
+    constructor(uint256 _i_goal) {
         owner = payable(msg.sender);
+        i_goal = _i_goal;
     }
 
 
@@ -33,6 +36,9 @@ contract DonationContract {
         donationsCount++;
         totalDonations = totalDonations + msg.value;
         addressToAmountFunded[msg.sender].push(donation);
+        if(totalDonations >= i_goal) {
+            revert("goal reached!");
+        }
     }
 
     function getOwner() public view returns (address) {
@@ -76,4 +82,3 @@ contract DonationContract {
 }
 
 }
-
